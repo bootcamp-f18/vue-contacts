@@ -16,6 +16,9 @@ let app = new Vue({
 
         nextId: 1,
 
+        sortIsAscending: false,
+        sortByField: '',
+
         contacts: []
 
     },
@@ -81,9 +84,19 @@ let app = new Vue({
 
         },
 
-        sortContacts: function (sortField) {
+        sortContacts: function (request) {
 
-            console.log("Sorting contacts by [" + sortField + "]");
+            console.log("Sorting contacts by [" + request + "]");
+
+            // TODO: confirm that the sort order requested is a valid one
+
+            if (request == this.sortByField) {
+                this.sortIsAscending = !this.sortIsAscending;
+            }
+            else {
+                this.sortByField = request;
+                this.sortIsAscending = true;
+            }
 
         },
 
