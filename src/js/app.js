@@ -56,6 +56,13 @@ let app = new Vue({
 
             }
 
+            filteredContacts.sort(this.compare);
+
+            // TODO: sortIsAscending
+            if (!this.sortIsAscending) {
+                filteredContacts.reverse();
+            }
+
             return filteredContacts;
 
         }
@@ -63,6 +70,28 @@ let app = new Vue({
     },
 
     methods: {
+
+        compare: function (a, b) {
+
+            // a is the first contact object
+            //      a.firstname,
+            //      a.lastname...
+            // b is the second contact object
+
+            // a compare function works by returns:
+            // 0 if a = b
+            // 1 if a > b
+            // -1 if a < b
+
+            if ( a[this.sortByField] > b[this.sortByField] ) {
+                return 1;
+            }
+            else if ( a[this.sortByField] < b[this.sortByField] ) {
+                return -1;
+            }
+            return 0;
+
+        },
 
         addOrUpdateContact: function () {
 
