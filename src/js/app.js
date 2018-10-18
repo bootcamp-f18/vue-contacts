@@ -14,25 +14,17 @@ let app = new Vue({
         formPhone: '',
         formOldId: '',
 
-        nextId: 3,
+        nextId: 1,
 
-        contacts: [
-            {
-                id: 1,
-                firstname: 'John',
-                lastname: 'Deer',
-                emailaddr: 'jdeer@example.com',
-                phonenum: '867-5309'
-            },
-            {
-                id: 2,
-                firstname: 'Jane',
-                lastname: 'Doe',
-                emailaddr: 'janed@example.com',
-                phonenum: '859-123-4567'
-            }
-        ]
+        contacts: []
 
+    },
+
+    mounted() {
+        if (localStorage.getItem('contacts')) {
+            this.contacts = JSON.parse(localStorage.getItem('contacts'));
+        }
+        this.resetNextId();
     },
 
     methods: {
@@ -58,6 +50,8 @@ let app = new Vue({
 
             this.contacts.push(newContact);
 
+            localStorage.setItem('contacts', JSON.stringify(this.contacts));
+
             this.cancel();
 
         },
@@ -82,6 +76,8 @@ let app = new Vue({
 
             let index = this.findIndexById(contactId);
             this.contacts.splice(index, 1);
+
+            localStorage.setItem('contacts', JSON.stringify(this.contacts));
 
         },
 
@@ -114,7 +110,20 @@ let app = new Vue({
             this.formEmail = '';
             this.formPhone = '';
             this.formOldId = '';
-            
+
+        },
+
+        resetNextId: function () {
+
+            let maxId = 0;
+            this.contacts.forEach(function(contact) {
+                if (contact.id > maxId) {
+                    maxId = contact.id;
+                }
+            });
+
+            this.nextId = ++maxId;
+
         }
 
     }
