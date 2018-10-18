@@ -31,7 +31,8 @@
                         <label for="phonenum" class="text-warning">Phone Number:</label>
                         <input id="phonenum" v-model="formPhone" type="text" class="form-control bg-secondary text-light">
                     </div>
-                    <button type="button" class="btn btn-warning float-right" v-on:click="addOrUpdateContact">{{ buttonText }}</button>
+                    <button type="button" class="btn btn-warning float-right" v-on:click="addOrUpdateContact">{{ formOldId == '' ? 'Add' : 'Update' }}</button>
+                    <button type="button" class="mr-3 btn btn-secondary float-right" v-on:click="cancel">Cancel</button>
                     <input type="hidden" v-bind:value="formOldId">
                 </form>
             </div>
