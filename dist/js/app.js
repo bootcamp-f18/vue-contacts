@@ -143,6 +143,10 @@ let app = new Vue({
 
             localStorage.setItem('contacts', JSON.stringify(this.contacts));
 
+            if (this.contacts.length == 0) {
+                this.showForm = true;
+            }
+
         },
 
         sortContacts: function (request) {
