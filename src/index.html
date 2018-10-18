@@ -10,10 +10,10 @@
 
         <h1 class="mt-5 text-primary text-center">Vue Contacts</h1>
 
-        <div id="app" v-cloak>
+        <div id="app" class="mt-4" v-cloak>
 
             <a class="mt-5" href="#" v-on:click="toggleForm">{{ showForm ? 'Hide form' : 'Show form' }}</a>
-            <div class="mt-3">
+            <div class="mt-4">
                 <form class="clearfix" v-if="showForm">
                     <div class="form-group">
                         <label for="firstname" class="text-warning">First Name</label>
@@ -32,6 +32,7 @@
                         <input id="phonenum" v-model="formPhone" type="text" class="form-control bg-secondary text-light">
                     </div>
                     <button type="button" class="btn btn-warning float-right" v-on:click="addOrUpdateContact">{{ buttonText }}</button>
+                    <input type="hidden" v-bind:value="formOldId">
                 </form>
             </div>
 

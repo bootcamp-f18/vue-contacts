@@ -13,6 +13,7 @@ let app = new Vue({
         formLast: '',
         formEmail: '',
         formPhone: '',
+        formOldId: '',
 
         nextId: 3,
 
@@ -42,6 +43,10 @@ let app = new Vue({
             // TODO:
             // What kind of input validation do we want to do?
 
+            if (this.formOldId != '') {
+                this.deleteContact(this.formOldId);
+            }
+
             let newContact = {
                 id: this.nextId,
                 firstname: this.formFirst,
@@ -58,6 +63,8 @@ let app = new Vue({
             this.formLast = '';
             this.formEmail = '';
             this.formPhone = '';
+            this.formOldId = '';
+            this.buttonText = 'Add';
 
         },
 
@@ -71,14 +78,17 @@ let app = new Vue({
             this.formLast = this.contacts[index].lastname;
             this.formEmail = this.contacts[index].emailaddr;
             this.formPhone = this.contacts[index].phonenum;
+            this.formOldId = this.contacts[index].id;
 
+            this.buttonText = 'Update';
             this.showForm = true;
 
         },
 
         deleteContact: function (contactId) {
 
-            console.log("Time to delete contact # [" + contactId + "]");
+            let index = this.findIndexById(contactId);
+            this.contacts.splice(index, 1);
 
         },
 
