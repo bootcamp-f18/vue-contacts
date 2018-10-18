@@ -3,6 +3,7 @@
     <head>
         <meta charset="utf-8">
         <title>Vue Contacts</title>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
         <link rel="stylesheet" href="css/style.css" type="text/css">
     </head>
     <body class="container bg-dark text-light">
@@ -37,6 +38,7 @@
             <table class="table mt-5">
                 <thead>
                     <tr>
+                        <th><span class="font-weight-light">Actions</span></th>
                         <th><a href="#" v-on:click="sortContacts('firstname')">First Name</a></th>
                         <th><a href="#" v-on:click="sortContacts('lastname')">Last Name</a></th>
                         <th><a href="#" v-on:click="sortContacts('emailaddr')">Email Address</a></th>
@@ -45,6 +47,7 @@
                 </thead>
                 <tbody>
                     <tr v-for="contact in contacts">
+                        <td><i class="fas fa-user-edit text-success" v-on:click="editContact(contact.id)"></i><i class="pl-2 fas fa-user-minus text-danger" v-on:click="deleteContact(contact.id)"></i></td>
                         <td>{{ contact.firstname }}</td>
                         <td>{{ contact.lastname }}</td>
                         <td>{{ contact.emailaddr }}</td>
