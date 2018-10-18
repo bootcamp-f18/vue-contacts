@@ -7,6 +7,7 @@ let app = new Vue({
     data: {
 
         showForm: true,
+        errorMessage: '',
 
         formFirst: '',
         formLast: '',
@@ -95,28 +96,41 @@ let app = new Vue({
 
         addOrUpdateContact: function () {
 
-            // TODO:
-            // What kind of input validation do we want to do?
+            let validEmail = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/;
+            let validPhone = /[0-9-xX\.+\(\)]+/;
 
-            if (this.formOldId != '') {
-                this.deleteContact(this.formOldId);
+            if ( !this.formFirst && !this.formLast ) {
+                this.errorMessage = "Please fill in either <strong>First Name</strong> or <strong>Last Name</strong> (or both)."
             }
+            else if ( this.formEmail && !this.formEmail.match(validEmail) ) {
+                this.errorMessage = "Email addresses must follow the usual pattern: <strong>name@example.com</strong>.";
+            }
+            else if ( this.formPhone && !this.formPhone.match(validPhone)) {
+                this.errorMessage = "Only certain characters are allowed in phone numbers: <strong>digits, ., -, +, x, X</strong>.";
+            }
+            else {
 
-            let newContact = {
-                id: this.nextId,
-                firstname: this.formFirst,
-                lastname: this.formLast,
-                emailaddr: this.formEmail,
-                phonenum: this.formPhone
-            };
+                if (this.formOldId != '') {
+                    this.deleteContact(this.formOldId);
+                }
 
-            this.nextId++;
+                let newContact = {
+                    id: this.nextId,
+                    firstname: this.formFirst,
+                    lastname: this.formLast,
+                    emailaddr: this.formEmail,
+                    phonenum: this.formPhone
+                };
 
-            this.contacts.push(newContact);
+                this.nextId++;
 
-            localStorage.setItem('contacts', JSON.stringify(this.contacts));
+                this.contacts.push(newContact);
 
-            this.cancel();
+                localStorage.setItem('contacts', JSON.stringify(this.contacts));
+
+                this.cancel();
+
+            }
 
         },
 
@@ -188,6 +202,7 @@ let app = new Vue({
             this.formEmail = '';
             this.formPhone = '';
             this.formOldId = '';
+            this.errorMessage = '';
 
         },
 
