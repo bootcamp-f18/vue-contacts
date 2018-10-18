@@ -19,6 +19,8 @@ let app = new Vue({
         sortIsAscending: false,
         sortByField: '',
 
+        filterText: '',
+
         contacts: []
 
     },
@@ -28,6 +30,36 @@ let app = new Vue({
             this.contacts = JSON.parse(localStorage.getItem('contacts'));
         }
         this.resetNextId();
+    },
+
+    computed: {
+
+        sortedFilteredContacts: function () {
+
+            let filteredContacts = this.contacts;
+            let search = this.filterText.trim().toLowerCase();
+
+            if (search) {
+
+                filteredContacts = filteredContacts.filter(function(contact) {
+
+                    if (
+                            contact.firstname.toLowerCase().indexOf(search) !== -1 ||
+                            contact.lastname.toLowerCase().indexOf(search) !== -1 ||
+                            contact.emailaddr.toLowerCase().indexOf(search) !== -1 ||
+                            contact.phonenum.toLowerCase().indexOf(search) !== -1
+                    ) {
+                        return contact;
+                    }
+
+                });
+
+            }
+
+            return filteredContacts;
+
+        }
+
     },
 
     methods: {
