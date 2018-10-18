@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <title>Vue Contacts</title>
+        <link rel="stylesheet" href="css/style.css" type="text/css">
+    </head>
+    <body class="container bg-dark text-light">
+
+        <h1 class="mt-5 text-info text-center">Vue Contacts</h1>
+
+        <div id="app">
+
+            <form class="mt-5">
+                <div class="form-group">
+                    <label for="firstname">First Name</label>
+                    <input id="firstname" type="text" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="lastname">Last Name:</label>
+                    <input id="lastname" type="text" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="emailaddr">Email Address:</label>
+                    <input id="emailaddr" type="text" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="phonenum">Phone Number:</label>
+                    <input id="phonenum" type="text" class="form-control">
+                </div>
+                <button type="button" class="btn btn-info">Add</button>
+            </form>
+
+            <table class="table mt-5">
+                <thead>
+                    <tr>
+                        <th><a href="#" v-on:click="sort('firstname')">First Name</a></th>
+                        <th><a href="#" v-on:click="sort('lastname')">Last Name</a></th>
+                        <th><a href="#" v-on:click="sort('emailaddr')">Email Address</a></th>
+                        <th><a href="#" v-on:click="sort('phonenum')">Phone</a></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="contact in contacts">
+                        <td>{{ contact.firstname }}</td>
+                        <td>{{ contact.lastname }}</td>
+                        <td>{{ contact.emailaddr }}</td>
+                        <td>{{ contact.phonenum }}</td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+        <script src="js/app.js"></script>
+
+    </body>
+</html>
